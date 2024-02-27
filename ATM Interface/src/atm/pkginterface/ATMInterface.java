@@ -1,28 +1,30 @@
 package atm.pkginterface;
+
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ATMInterface extends JFrame {
     private float balance = 1000.0f;
-    private int pin = 7345;
+    private int pin = 2223;
     private boolean pinVerified = false;
 
     private JLabel title, balanceLabel, label;
     private JTextField pinField;
-    private JButton verifyButton, checkBalance, withdrawButton, depositButton;
+    private JButton verifyButton, checkBalance, withdrawButton, depositButton, cencelButton;
+
 
     public ATMInterface() {
         setTitle("ATM Interface");
-        setBounds(0, 0, 300,400);
+        setBounds(300, 100, 300,400);
         getContentPane().setBackground(new Color(21,66, 155));
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+
         title = new JLabel("ATM INTERFACE");
-        title.setBounds(0,50,300, 50);
+        title.setBounds(0,80,300, 50);
         title.setFont(new Font("Tahoma", Font.BOLD, 24));
         title.setForeground(Color.WHITE);
         
@@ -63,6 +65,28 @@ public class ATMInterface extends JFrame {
         depositButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
         depositButton.setBackground(new Color(8,186, 245));
         depositButton.setForeground(Color.WHITE);
+
+        //-------------- I add a cancel Button to vanish the Interface After operation-----------
+        
+        cencelButton = new JButton("cancel");
+        cencelButton.setBounds(100, 400, 50, 30);
+        cencelButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        cencelButton.setBackground(new Color(8,186, 245));
+        cencelButton.setForeground(Color.WHITE);
+
+        
+       
+        cencelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String msg =e.getActionCommand();
+                if(msg.equals("cancel")){
+                    setVisible(false);  
+                     } 
+            }
+        });
+
+        //----------------------------------end of cancel button-------------------------------------------------------
 
         verifyButton.addActionListener(new ActionListener() {
             @Override
@@ -131,6 +155,12 @@ public class ATMInterface extends JFrame {
         add(checkBalance);
         add(withdrawButton);
         add(depositButton);
+        add(cencelButton);
+        
+        
+        
+
+        
     }
 
     public static void main(String[] args) {
